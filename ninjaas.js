@@ -7,10 +7,37 @@ isValidDate = function isValidDate(d) {
   return !isNaN(d.getTime());
 };
 
-app.controller('BackgroundChanger', function($scope, $locale) {
-    $scope.backgroundImages = [
-        'https://farm8.staticflickr.com/7185/13968522491_079006966f_h.jpg',
-        'https://farm8.staticflickr.com/7339/13968132941_f84ec1edf6_h.jpg'];
+app.factory('flickrFactory', function($http, $q) {
+    var flickrKey = "b48c0c899e10617c2a9f07bf4442e53c";
+    return{
+        getSizes : function(id) {
+            var getSizesUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key="+flickrKey+"&photo_id="+id+"&format=json&nojsoncallback=1";
+            return $http({
+                url: getSizesUrl,
+                method: 'GET'
+            })
+        },
+        getInfo : function(id) {
+            var getInfoUrl = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key="+flickrKey+"&photo_id="+id+"&format=json&nojsoncallback=1";
+            return $http({
+                url: getInfoUrl,
+                method: 'GET'
+            });
+        }
+    }
+});
+
+app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
+
+    $scope.backgroundImages = ['13968522491','13976612784','13968027732','13966663232','13966663232','13965592221','13965299902','13968132941'];
+
+    $scope.flickr = function(id){
+       $http.get(getSizesUrl).then(function(response) {
+            $scope.getSizes = response.data;
+            console.log($scope.getSizes.sizes.size[10].source);
+            return $scope.getSizes.sizes.size[10].source;
+        });
+    }
 
     $scope.loadNewBg = function () {
         var index = localStorage.background;
@@ -23,11 +50,23 @@ app.controller('BackgroundChanger', function($scope, $locale) {
     $scope.selectBackground = function() {
         $scope.loadNewBg();
         var index = localStorage.getItem("background");
-        return $scope.backgroundImages[index];
+        var flickrId = $scope.backgroundImages[index];
+        flickrFactory.getSizes(flickrId).success(function(data) {
+             console.log(data);
+             $scope.backgroundStyle =  function(){
+                return {
+                    'background': 'url('+data.sizes.size[10].source+') no-repeat center center fixed',
+                    'background-size' : 'cover'
+                }
+            };
+        });
+       
     };
 
-    $scope.backgroundStyle = {
-        'background': 'url('+$scope.selectBackground()+') no-repeat center center fixed',
-        'background-size' : 'cover'
+    $scope.backgroundStyle =  function(){
+        return {
+             'background': 'url('+$scope.selectBackground()+') no-repeat center center fixed',
+            'background-size' : 'cover'
+        }
     };
 });
