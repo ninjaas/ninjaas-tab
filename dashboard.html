@@ -6,15 +6,10 @@
         <title>New Tab</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-
         <script type="text/javascript" src="angular.min.js"></script>
         <script src="ninjaas.js"></script>
     </head>
-    
-    <body ng-controller="BackgroundChanger" 
-        style="
-            background:url('{{selectBackground()}}')no-repeat center center fixed;
-            background-size: cover; ">
 
+    <body ng-controller="BackgroundChanger"  ng-style="{{backgroundStyle}}">
     </body>
 </html>
