@@ -1,0 +1,97 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body { 
+    font: normal 14px 'Open Sans', Arial, sans-serif;
+}
+
+.wrap {
+    width: 300px;
+    float: right;
+    display: inline-block;
+}
+.wrap > .fa{
+  float: right;
+  background: rgba(0,0,0,0.4);
+  margin: 0px;
+  color: white;
+  padding: 5px;
+}
+.wrap .fa{
+  cursor: pointer;
+}
+
+.task-true{
+  display: block;
+}
+.task-false{
+  display: none;
+}
+
+.task-list {
+    width: 88%;
+    background: rgba(255,255,255,0.4);
+    padding: 22px 6%;
+}
+
+.task-list ul{
+    max-height: 200px;
+    overflow: auto;
+}
+
+.task-list li {
+  font-size: 1.2em;
+    padding: 8px 0px;
+    overflow: hidden;
+}
+
+.task-list li span {
+    width: 86%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.add-new-task {
+    margin-top: 20px;
+    padding-bottom: 60px;
+}
+
+.add-new-task input[type='text'] {
+    width: 100%;
+    font: normal 1.2em 'Open Sans', Arial, sans-serif;
+    color: #999;
+    box-shadow: 2px 2px 0px #ddd;
+    border: none;
+    border-radius: none;
+    display: block;
+    padding: 12px 6%;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+:focus {
+    outline: 0;
+}
+button.delete {
+  display: block;
+  background: rgba(0,0,0,0.8);
+  font-size:16px;
+  border:none;
+  padding:15px 20px;
+  margin: 0px auto;
+  letter-spacing:2px;
+  cursor: pointer;
+}
+
+.task-list li span{
+    text-decoration: none;
+    -webkit-transition: text-decoration 0.5s ease-in;
+}
+
+.task-list li span.done-true {
+  text-decoration: line-through;
+}

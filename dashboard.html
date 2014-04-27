@@ -6,10 +6,61 @@
         <title>New Tab</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <script type="text/javascript" src="angular.min.js"></script>
+        <script type="text/javascript" src="angular.min.js"></script><link href='http://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
         <script src="ninjaas.js"></script>
+        <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="todo.css">
+        <link rel="stylesheet" type="text/css" href="background.css">
     </head>
 
-    <body ng-controller="BackgroundChanger"  ng-style="backgroundStyle()">
+    <body ng-controller="BackgroundChanger"  ng-style="backgroundStyle()" ng-init="init()" >
+        <div ng-controller="ClockController"  class="time  hide-{{hide}}">
+            <span>
+              <span class="hours">
+                {{date.getHours() | pad}}
+              </span>:<span class="minutes">
+                {{date.getMinutes() | pad}}
+              </span>:<span class="seconds">
+                {{date.getSeconds() | pad}}
+              </span>
+            </span>
+        </div>
+        <div class="wrap  hide-{{hide}}" ng-controller="TodoCtrl" ng-init="init()">
+          <button class="fa fa-compass fa-3x" ng-click="hidder()"></button>
+          <div class="task-list task-{{show}}" >
+            <span>{{remaining()}} of {{todos.length}} remaining</span>
+            <ul class="unstyled">
+              <li ng-repeat="todo in todos">
+                <span class="done-{{todo.done}}" >{{todo.text}} </span>
+                <i class="fa fa-ban" ng-click="strick($index);"></i>
+              </li>
+            </ul>
+            <form class="add-new-task" autocomplete="off" ng-submit="addTodo()">
+              <input type="text" name="new-task" placeholder="Add a new item..."  ng-model="todoText" />
+            </form>
+            <button class="delete" ng-click="archive()"> <i class="fa fa-trash-o"></i>Remove</button>
+          </div>
+        </div>
+        
+        <div class="focus-wrap" ng-controller="FocusCtrl" ng-init="init()" ng-click="hideBox()">
+          <div class="box hide-{{hide}}" ng-click="$event.stopPropagation();">
+            <input  type="text" placeholder="Focus on one thing" ng-model="focus" ng-change="saveFocus()">
+            <span>{{count()}}</span>
+          </div>
+        </div>
+
+        <div class="photocredits  hide-{{hide}}">
+          <a href="{{backgroundInfo.url}}" target="_blank">{{backgroundInfo.title}} - {{backgroundInfo.username}}</a>
+        </div>
+        <div  ng-click="changeBackground()" class="randomImage">
+            <i class="fa fa-random  fa-3x"></i>
+        </div>
+        <div class="addbackground  hide-{{hide}}">
+            <form ng-submit="addBackground()">
+            <input type="text" ng-model="backgroundUrl"  size="50"
+                   placeholder="Add flickr image to list">
+            <button type="submit"><i class="fa fa-plus fa-1x"></i></button>
+          </form>
+        </div>
     </body>
 </html>
