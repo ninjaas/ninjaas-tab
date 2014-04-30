@@ -205,27 +205,35 @@ app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
         var index = localStorage.background;
         if (index==isNaN||!index||change){
             index = loadNewBg();
-        }
-        var flickrUrl = $scope.backgroundImages[index];
-        var id = flickrId(flickrUrl);
-        if (change.length==11){
-            id = change;
-        }
-        flickrFactory.getSizes(id).then(function(data) {
-             $scope.backgroundStyle =  function(){
-                return {
-                    'background': 'url('+data.sizes.size[10].source+') no-repeat center center fixed',
-                    'background-size' : 'cover'
-                }
-            };
-        });
-        flickrFactory.getInfo(id).then(function(data) {
-             $scope.backgroundInfo = {
-                    'username': data.photo.owner.username,
-                    'title': data.photo.title._content,
-                    'url': data.photo.urls.url[0]._content,
+        }else if(localStorage.backgroundStyle&&localStorage.backgroundInfo&&!change){
+          console.log("Hello");
+          $scope.backgroundInfo = JSON.parse(localStorage.backgroundInfo);
+          $scope.backgroundStyle = function(){ return JSON.parse(localStorage.backgroundStyle)};
+        }else{
+            var flickrUrl = $scope.backgroundImages[index];
+            var id = flickrId(flickrUrl);
+            if (change.length==11){
+                id = change;
+            }
+            flickrFactory.getSizes(id).then(function(data) {
+                 $scope.backgroundStyle =  function(){
+                    return {
+                        'background': 'url('+data.sizes.size[10].source+') no-repeat center center fixed',
+                        'background-size' : 'cover'
+                    }
                 };
-        });
+                localStorage.backgroundStyle = JSON.stringify($scope.backgroundStyle());
+            });
+            flickrFactory.getInfo(id).then(function(data) {
+                 $scope.backgroundInfo = {
+                        'username': data.photo.owner.username,
+                        'title': data.photo.title._content,
+                        'url': data.photo.urls.url[0]._content,
+                    };
+                localStorage.backgroundInfo = JSON.stringify($scope.backgroundInfo);
+                console.log(localStorage.backgroundInfo);
+            });
+        }
     };
 
 });
