@@ -203,16 +203,19 @@ app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
 
     var selectBackground = function(change) {
         var index = localStorage.background;
-        if (index==isNaN||!index||change){
-            index = loadNewBg();
-        }else if(localStorage.backgroundStyle&&localStorage.backgroundInfo&&!change){
-          console.log("Hello");
+        if(localStorage.backgroundStyle&&localStorage.backgroundInfo&&!change){
+          console.log("Image and Info exists.");
           $scope.backgroundInfo = JSON.parse(localStorage.backgroundInfo);
           $scope.backgroundStyle = function(){ return JSON.parse(localStorage.backgroundStyle)};
         }else{
+            if (index==isNaN||!index||change){
+              console.log("Load new image");
+              index = loadNewBg();
+            }
             var flickrUrl = $scope.backgroundImages[index];
             var id = flickrId(flickrUrl);
             if (change.length==11){
+                console.log("Load new image, when image is added from flickr");
                 id = change;
             }
             flickrFactory.getSizes(id).then(function(data) {
