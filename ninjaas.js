@@ -137,6 +137,7 @@ app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
 
     $scope.init = function(){
         initializeImages();
+        synchronousBackgroundUpdate();
         selectBackground(false);
     };
 
@@ -160,6 +161,23 @@ app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
         }
     };
 
+    var synchronousBackgroundUpdate = function(){
+      var date = localStorage.backgroundDate;
+      if(!date){
+        var date = new Date();
+        localStorage.backgroundDate = date.getDate();
+        console.log("Date initiated")
+      }else{
+        var newdate = new Date();
+        if(date!=newdate.getDate()){
+          selectBackground(true);
+          localStorage.backgroundDate = newdate.getDate();
+          console.log("Date changed");
+        }else{
+          console.log("Same Date");
+        }
+      }
+    };
 
     var loadNewBg = function () {
         var index = localStorage.background;
