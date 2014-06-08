@@ -3,10 +3,15 @@
   font-family: 'Voltaire';
   font-size: 2em;
   float: left;
-  margin: 0;
-  color:white;
-  display: inline-block;
+  padding-bottom: 20px;
+  color: white;
+  display: block;
   background: rgba(0,0,0,0.4);
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  z-index: -2;
 }
 
 
@@ -24,7 +29,7 @@
   font-family: "Voltaire";
 }
 .focus-wrap .box{
-  margin: 100px auto;
+  margin: 150px auto;
   padding: 20px;
   color: white;
   background: rgba(0,0,0,0.4);

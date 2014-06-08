@@ -80,6 +80,7 @@ app.filter('pad', function() {
   };
 });
 
+
 app.filter('addSuffix', function() {
   return function(num) {
     if (num % 100 >= 10 && num % 100 <= 19) {

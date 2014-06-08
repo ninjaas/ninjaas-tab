@@ -17,12 +17,21 @@
         <div ng-controller="ClockController"  class="time  hide-{{hide}}">
             <span>
               <span class="hours">
-                {{date.getHours() | pad}}
+                {{date.getHours()%12 || 12 | pad}}
               </span>:<span class="minutes">
                 {{date.getMinutes() | pad}}
               </span>:<span class="seconds">
                 {{date.getSeconds() | pad}}
               </span>
+              <span>
+                {{date.}}
+              </span>
+            </span>
+            <span>
+              <p>
+        {{days[date.getDay()]}}, {{date.getDate() | addSuffix}}
+        of {{months[date.getMonth()]}}.
+      </p>
             </span>
         </div>
         <div class="wrap  hide-{{hide}}" ng-controller="TodoCtrl" ng-init="init()">
