@@ -16,7 +16,7 @@
    "manifest_version": 2,
    "name": "Ninjaas",
    "offline_enabled": true,
-   "permissions": [ "https://*.flickr.com/*" ],
+   "permissions": [ "https://*.flickr.com/*","tabs" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "0.1"
 }

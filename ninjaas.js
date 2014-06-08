@@ -259,3 +259,9 @@ app.controller('BackgroundChanger', function($scope, $http, flickrFactory) {
     };
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('chromeApps').addEventListener('click', function() {
+        chrome.tabs.update({ url: 'chrome://apps' });
+    });
+});

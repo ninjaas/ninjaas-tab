@@ -91,3 +91,16 @@
 .addbackground input {
   border-bottom: 1px white solid;
 }
+
+.app {
+    width: 50px;
+    float: left;
+    display: inline-block;
+}
+.app .fa{
+  background: rgba(0,0,0,0.5);
+  margin: 0px;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
