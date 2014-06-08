@@ -17,14 +17,9 @@
         <div ng-controller="ClockController"  class="time  hide-{{hide}}">
             <span>
               <span class="hours">
-                {{date.getHours()%12 || 12 | pad}}
-              </span>:<span class="minutes">
-                {{date.getMinutes() | pad}}
-              </span>:<span class="seconds">
-                {{date.getSeconds() | pad}}
-              </span>
-              <span>
-                {{date.}}
+                {{date.getHours()%12 || 12 | pad}} :
+              </span><span class="minutes">
+                {{Math.round(date.getMinutes()/15)*15 | pad }}
               </span>
             </span>
             <span>

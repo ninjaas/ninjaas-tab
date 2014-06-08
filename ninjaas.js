@@ -98,6 +98,7 @@ app.filter('addSuffix', function() {
 })
 
 app.controller("ClockController", function($scope, $timeout) {
+  $scope.Math = window.Math;
   $scope.date = new Date();
   $scope.days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
